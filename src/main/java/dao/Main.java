@@ -2,26 +2,22 @@ package dao;
 
 public class Main {
     public static void main(String[] args) {
+        DBConnection.initializeDatabase();
+        DBConnection.populateTables();
+
         UserDAONew userDAO = new UserDAONew();
-        ApplicationDAO applicationDAO = new ApplicationDAO();
-        TaskDAO taskDAO = new TaskDAO();
+        userDAO.addUser("Alice Smith", "alice@example.com", "9876543210", "High School C", 3.7f, "securePass123");
 
-        // Add a user
-        userDAO.addUser("John", "Doe", "john.doe@example.com", "1234567890", 3.8f);
-
-        // Display users
-        userDAO.displayUsers();
-
-        // Add an application
-        applicationDAO.addApplication(1, 1, true, "2024-12-31");
-
-        // Display applications
-        applicationDAO.displayApplications();
-
-        // Add a task
-        taskDAO.addTask(1, "Submit essay", "2024-12-15");
-
-        // Display tasks
-        taskDAO.displayTasks();
+        System.out.println("Users in the database:");
+        userDAO.displayUsers().forEach(user -> {
+            System.out.println(
+                    "ID: " + user.getUserId() +
+                            ", Name: " + user.getName() +
+                            ", Email: " + user.getEmail() +
+                            ", Phone: " + user.getPhoneNumber() +
+                            ", High School: " + user.getHighSchoolName() +
+                            ", GPA: " + user.getGpa()
+            );
+        });
     }
 }
